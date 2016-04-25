@@ -1,0 +1,41 @@
+body {
+  border-style: solid;
+  border-width: thin;
+  border-color: black;
+  height: 600px;
+  width: 600px;
+}
+
+main {
+  border-style: solid;
+  border-width: thin;
+  border-color: black;
+  height: 100%;
+  width: 100%;
+}
+
+article {
+  border-style: solid;
+  border-width: thin;
+  border-color: black;
+  height: 30%;
+  width: 100%
+}
+
+.div-container {
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-width: thin;
+  border-color: black;
+  height:70%;
+  width: 100%;
+}
+
+.image-container {
+  border-style: solid;
+  border-width: thin;
+  border-color: black;
+  height: 100%;
+  width: 33%;
+}
