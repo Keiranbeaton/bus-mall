@@ -3,7 +3,7 @@ body {
   border-width: thin;
   border-color: black;
   height: 600px;
-  width: 600px;
+  width: 1000px;
 }
 
 main {
@@ -38,4 +38,7 @@ article {
   border-color: black;
   height: 100%;
   width: 33%;
+}
+img {
+  max-width: 100%;
 }
