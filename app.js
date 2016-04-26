@@ -1,9 +1,3 @@
-var imageArray = [];
-var image = document.createElement('img');
-var image1 = document.createElement('img');
-var image2 = document.createElement('img');
-var allContainer = document.getElementById('div-container')
-
 function Image(name, filePath, timesShown, timesClicked) {
   this.name = name;
   this.filePath = filePath;
@@ -49,6 +43,12 @@ function handleClick(event) {
   }
 }
 
+var imageArray = [];
+var image = document.createElement('img');
+var image1 = document.createElement('img');
+var image2 = document.createElement('img');
+var allContainer = document.getElementById('div-container')
+
 var babySweep = new Image('Baby Sweep', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/baby-sweep.png', 0, 0);
 var bananaCutter = new Image('Banana Cutter', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/banana-cutter.jpg', 0, 0);
 var breakfastMaker = new Image('Breakfast Maker', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/breakfast-maker.jpg', 0, 0);
@@ -71,6 +71,7 @@ var waterCan = new Image('Watering Can', 'file:///C:/Users/keira/code_fellows/20
 var wineGlass = new Image('Wine Glass', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/wine-glass-weird-opening.jpg', 0, 0);
 
 randomImage();
+
 image.addEventListener('click', handleClick);
 image1.addEventListener('click', handleClick);
 image2.addEventListener('click', handleClick);
