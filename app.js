@@ -1,8 +1,16 @@
-function Image(name, filePath, timesShown, timesClicked) {
-  this.name = name;
+var imageArray = [];
+var image = document.createElement('img');
+var image1 = document.createElement('img');
+var image2 = document.createElement('img');
+var allContainer = document.getElementById('div-container')
+var totalClicks = 0;
+
+
+function Image(imageName, filePath) {
+  this.imageName = imageName;
   this.filePath = filePath;
-  this.timesShown = timesShown;
-  this.timesClicked = timesClicked;
+  this.timesShown = 0;
+  this.timesClicked = 0;
   this.shown = function() {
     this.timesShown += 1;
   }
@@ -12,6 +20,26 @@ function Image(name, filePath, timesShown, timesClicked) {
   imageArray.push(this);
 }
 
+var babySweep = new Image('Baby Sweep', 'img/baby-sweep.png');
+var bananaCutter = new Image('Banana Cutter', 'img/banana-cutter.jpg');
+var breakfastMaker = new Image('Breakfast Maker', 'img/breakfast-maker.jpg');
+var cthulu = new Image('Cthulu', 'img/cthulu-action-figure.jpg');
+var dogDuckBill = new Image('Dog Duck Bill', 'img/dog-duck-bill.jpg');
+var dragon = new Image('Dragon Meat', 'img/dragon-meat.jpg');
+var chair = new Image('Chair', 'img/inverted-chair.jpg');
+var bubblegum = new Image('Bubblegum', 'img/meatball-bubblegum.jpg');
+var boots = new Image('Boots', 'img/open-toed-boots.jpg');
+var pen = new Image('Pen', 'img/pen-utensils.jpg');
+var petSweep = new Image('Pet Sweep', 'img/pet-sweep.jpg');
+var pizzaScissors = new Image('Pizza Scissors', 'img/pizza-scissors.jpg');
+var bag = new Image('R2-D2 Bag', 'img/r2d2-bag.jpg', 0, 0);
+var shark = new Image('Shark Sleeping Bag', 'img/shark-sleeping-bag.jpg');
+var tauntaun = new Image('Tauntaun Sleeping Bag', 'img/tauntaun-sleeping-bag.jpg');
+var toiletTablet = new Image('Toilet Tablet', 'img/toilet-paper-tablet.jpg');
+var unicorn = new Image('Unicorn Meat', 'img/unicorn-meat.jpg');
+var tentacle = new Image('USB Tentacle', 'img/usb-tentacle.gif');
+var waterCan = new Image('Watering Can', 'img/watering-can-dumb.jpg');
+var wineGlass = new Image('Wine Glass', 'img/wine-glass-weird-opening.jpg');
 function randomImage() {
   var imageChoiceArray = [];
   for(i = 0; i < 3; i++) {
@@ -25,50 +53,25 @@ function randomImage() {
     imageChoiceArray[i].shown();
   }
   image.src = imageChoiceArray[0].filePath;
+  image.id = imageChoiceArray[0].imageName;
   image1.src = imageChoiceArray[1].filePath;
+  image1.id = imageChoiceArray[1].imageName;
   image2.src = imageChoiceArray[2].filePath;
+  image2.id = imageChoiceArray[2].imageName;
   allContainer.appendChild(image);
   allContainer.appendChild(image1);
   allContainer.appendChild(image2);
 }
 
 function handleClick(event) {
-  console.log(event.target.src + ' event target source');
-  console.log(imageArray.length + ' image array length');
+  totalClicks += 1;
   for(j = 0; j < imageArray.length; j++) {
-    if(event.target.src == imageArray[j].filePath) {
+    if(event.target.id == imageArray[j].imageName) {
       imageArray[j].clicks();
-      console.log(imageArray[j]);
     }
   }
 }
 
-var imageArray = [];
-var image = document.createElement('img');
-var image1 = document.createElement('img');
-var image2 = document.createElement('img');
-var allContainer = document.getElementById('div-container')
-
-var babySweep = new Image('Baby Sweep', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/baby-sweep.png', 0, 0);
-var bananaCutter = new Image('Banana Cutter', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/banana-cutter.jpg', 0, 0);
-var breakfastMaker = new Image('Breakfast Maker', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/breakfast-maker.jpg', 0, 0);
-var cthulu = new Image('Cthulu', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/cthulu-action-figure.jpg', 0, 0);
-var dogDuckBill = new Image('Dog Duck Bill', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/dog-duck-bill.jpg', 0, 0);
-var dragon = new Image('Dragon Meat', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/dragon-meat.jpg', 0, 0);
-var chair = new Image('Chair', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/inverted-chair.jpg', 0, 0);
-var bubblegum = new Image('Bubblegum', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/meatball-bubblegum.jpg', 0, 0);
-var boots = new Image('Boots', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/open-toed-boots.jpg', 0, 0);
-var pen = new Image('Pen', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/pen-utensils.jpg', 0, 0);
-var petSweep = new Image('Pet Sweep', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/pet-sweep.jpg', 0, 0);
-var pizzaScissors = new Image('Pizza Scissors', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/pizza-scissors.jpg', 0, 0);
-var bag = new Image('R2-D2 Bag', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/r2d2-bag.jpg', 0, 0);
-var shark = new Image('Shark Sleeping Bag', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/shark-sleeping-bag.jpg', 0, 0);
-var tauntaun = new Image('Tauntaun Sleeping Bag', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/tauntaun-sleeping-bag.jpg', 0, 0);
-var toiletTablet = new Image('Toilet Tablet', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/toilet-paper-tablet.jpg', 0, 0);
-var unicorn = new Image('Unicorn Meat', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/unicorn-meat.jpg', 0, 0);
-var tentacle = new Image('USB Tentacle', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/usb-tentacle.gif', 0, 0);
-var waterCan = new Image('Watering Can', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/watering-can-dumb.jpg', 0, 0);
-var wineGlass = new Image('Wine Glass', 'file:///C:/Users/keira/code_fellows/201/bus-mall/img/wine-glass-weird-opening.jpg', 0, 0);
 
 randomImage();
 
