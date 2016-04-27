@@ -3,34 +3,26 @@ var nameArray = [];
 var imageDisplayed = [];
 var imageClicked = [];
 var percentClicked = [];
+var totalClicks = 0;
+var clickLimit = 25;
+var allContainer = document.getElementById('div-container')
+var main = document.getElementById('main');
+var textPrompt = document.getElementById('text-prompt');
 var image = document.createElement('img');
 var image1 = document.createElement('img');
 var image2 = document.createElement('img');
-var main = document.getElementById('main');
-var textPrompt = document.getElementById('text-prompt');
 var donePrompt = document.createElement('article');
-var doneMessage = document.createElement('article');
-var buttonBox = document.createElement('div');
-doneMessage.textContent = 'Thank you for taking the time to complete our survey. Here are the results so far.'
-var doneButton = document.createElement('button');
-doneButton.textContent = 'DONE';
-var continueButton = document.createElement('button');
-continueButton.textContent = 'CONTINUE';
 var buttonExplanation = document.createElement('p');
-buttonExplanation.textContent = 'Thank you for completing 25 clicks of our survey. If you would like to view the results, click the "done" button. If you would like to select 10 more products, click the "continue" button';
-var allContainer = document.getElementById('div-container')
+var buttonBox = document.createElement('div');
+var doneButton = document.createElement('button');
+var continueButton = document.createElement('button');
+var doneMessage = document.createElement('article');
 var clickChart = document.getElementById('click-chart').getContext('2d');
 var percentChart = document.getElementById('percent-chart').getContext('2d');
-var data = {
-  labels: nameArray,
-  datasets: [{label: "Times Clicked", backgroundColor: "rgba(10,226,161,0.2)", borderColor: "rgba(10,226,161,1)", borderwidth: 1, hoverBackgroundColor: "rgba(10,226,161,.4)", hoverBorderColor: "rgba(10,226,161,1)", data: imageClicked}]
-}
-var data1 = {
-  labels : nameArray,
-  datasets : [{label: "% of Time Clicked When Displayed", backgroundColor: "rgba(54,162,235,0.2)", borderColor: "rgba(54,162,235,1)", borderwidth: 1, hoverBackgroundColor: "rgba(54,162,235,.4)", hoverBorderColor: "rgba(54,162,235,1)", data: percentClicked}]
-}
-var totalClicks = 0;
-var clickLimit = 25;
+buttonExplanation.textContent = 'Thank you for completing 25 clicks of our survey. If you would like to view the results, click the "display results" button. If you would like to select 10 more products, click the "continue clicking" button';
+doneMessage.textContent = 'Thank you for taking the time to complete our survey. Here are the results so far.'
+doneButton.textContent = 'DISPLAY RESULTS';
+continueButton.textContent = 'CONTINUE CLICKING';
 
 function Image(imageName, filePath) {
   this.imageName = imageName;
@@ -115,6 +107,14 @@ function handleClick(event) {
 }
 
 function showTable() {
+  var data = {
+    labels: nameArray,
+    datasets: [{label: "Times Clicked", backgroundColor: "rgba(10,226,161,0.2)", borderColor: "rgba(10,226,161,1)", borderwidth: 1, hoverBackgroundColor: "rgba(10,226,161,.4)", hoverBorderColor: "rgba(10,226,161,1)", data: imageClicked}]
+  }
+  var data1 = {
+    labels : nameArray,
+    datasets : [{label: "% of Time Clicked When Displayed", backgroundColor: "rgba(54,162,235,0.2)", borderColor: "rgba(54,162,235,1)", borderwidth: 1, hoverBackgroundColor: "rgba(54,162,235,.4)", hoverBorderColor: "rgba(54,162,235,1)", data: percentClicked}]
+  }
   main.removeChild(allContainer);
   donePrompt.removeChild(buttonBox);
   donePrompt.replaceChild(doneMessage, buttonExplanation);
