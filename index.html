@@ -4,17 +4,18 @@
 <head>
   <title></title>
   <link rel="stylesheet" type="text/css" href="style.css"></link>
+  <script src="chart.js"></script>
 </head>
 
 <body>
-  <main>
-    <article>
+  <main id="main">
+    <article id="text-prompt">
       Select the Item you would be most likely to buy out of this bus mall magazine.
     </article>
-    <div id="div-container" class="div-container">
-    <!-- <div class="image-container" id="image-container-1"></div>
-    <div class="image-container" id="image-container-2"></div>
-    <div class="image-container" id="image-container-3"></div> -->
+    <div id="div-container"></div>
+    <div id="chart-container">
+    <canvas id="click-chart" width="400" height="400"></canvas>
+    <canvas id="percent-chart" width="400" height="400"></canvas>
     </div>
   </main>
   <script type="text/javascript" src="app.js"></script>
