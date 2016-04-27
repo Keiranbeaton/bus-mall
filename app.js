@@ -21,28 +21,14 @@ buttonExplanation.textContent = 'Thank you for completing 25 clicks of our surve
 var allContainer = document.getElementById('div-container')
 var clickChart = document.getElementById('click-chart').getContext('2d');
 var percentChart = document.getElementById('percent-chart').getContext('2d');
-var data = {
-  labels: nameArray,
-  datasets: [{label: "Times Clicked", backgroundColor: "rgba(10,226,161,0.2)", borderColor: "rgba(10,226,161,1)", borderwidth: 1, hoverBackgroundColor: "rgba(10,226,161,.4)", hoverBorderColor: "rgba(10,226,161,1)", data: imageClicked}]
-}
-var data1 = {
-  labels : nameArray,
-  datasets : [{label: "% of Time Clicked When Displayed", backgroundColor: "rgba(54,162,235,0.2)", borderColor: "rgba(54,162,235,1)", borderwidth: 1, hoverBackgroundColor: "rgba(54,162,235,.4)", hoverBorderColor: "rgba(54,162,235,1)", data: percentClicked}]
-}
 var totalClicks = 0;
-var clickLimit = 25;
+var clicksRemaining = 25;
 
 function Image(imageName, filePath) {
   this.imageName = imageName;
   this.filePath = filePath;
   this.timesShown = 0;
   this.timesClicked = 0;
-  this.shown = function() {
-    this.timesShown += 1;
-  }
-  this.clicks = function() {
-    this.timesClicked += 1;
-  }
   imageArray.push(this);
 }
 
@@ -67,6 +53,12 @@ var tentacle = new Image('USB Tentacle', 'img/usb-tentacle.gif');
 var waterCan = new Image('Watering Can', 'img/watering-can-dumb.jpg');
 var wineGlass = new Image('Wine Glass', 'img/wine-glass-weird-opening.jpg');
 
+function updateArrays() {
+  for (var i = 0 ; i < imageArray.length; i++) {
+    imageDisplayed[i] = imageArray[i].timesShown;
+    imageClicked[i] = imageArray[i].timesClicked;
+  }
+}
 
 function randomImage() {
   var imageChoiceArray = [];
@@ -78,7 +70,7 @@ function randomImage() {
       }
     }
     imageChoiceArray.push(imageArray[imageNumber]);
-    imageChoiceArray[i].shown();
+    imageChoiceArray[i].timesShown++;
   }
   image.src = imageChoiceArray[0].filePath;
   image.id = imageChoiceArray[0].imageName;
@@ -92,14 +84,16 @@ function randomImage() {
 }
 
 function handleClick(event) {
-  totalClicks += 1;
-  clickLimit -= 1;
-  if(clickLimit > 0) {
+  if(clicksRemaining > 0) {
+    totalClicks += 1;
+    localStorage.setItem('clickData', JSON.stringify(totalClicks));
     for(var j = 0; j < imageArray.length; j++) {
       if(event.target.id == imageArray[j].imageName) {
-        imageArray[j].clicks();
+        imageArray[j].timesClicked++;
       }
     }
+    localStorage.setItem('imageData', JSON.stringify(imageArray));
+    updateArrays();
     randomImage();
   } else {
     allContainer.removeChild(image);
@@ -110,18 +104,26 @@ function handleClick(event) {
     donePrompt.appendChild(buttonBox);
     buttonBox.appendChild(continueButton);
     buttonBox.appendChild(doneButton);
-
   }
+  clicksRemaining -= 1;
 }
 
 function showTable() {
+  var data = {
+    labels: nameArray,
+    datasets: [{label: "Times Clicked", backgroundColor: "rgba(10,226,161,0.2)", borderColor: "rgba(10,226,161,1)", borderwidth: 1, hoverBackgroundColor: "rgba(10,226,161,.4)", hoverBorderColor: "rgba(10,226,161,1)", data: imageClicked}]
+  }
+  var data1 = {
+    labels : nameArray,
+    datasets : [{label: "% of Time Clicked When Displayed", backgroundColor: "rgba(54,162,235,0.2)", borderColor: "rgba(54,162,235,1)", borderwidth: 1, hoverBackgroundColor: "rgba(54,162,235,.4)", hoverBorderColor: "rgba(54,162,235,1)", data: percentClicked}]
+  }
   main.removeChild(allContainer);
   donePrompt.removeChild(buttonBox);
   donePrompt.replaceChild(doneMessage, buttonExplanation);
   for(var k = 0; k < imageArray.length; k++) {
     nameArray.push(imageArray[k].imageName);
-    imageDisplayed.push(imageArray[k].timesShown);
-    imageClicked.push(imageArray[k].timesClicked);
+    imageDisplayed[k] = imageArray[k].timesShown;
+    imageClicked[k] = imageArray[k].timesClicked;
     percentClicked.push((imageArray[k].timesClicked / imageArray[k].timesShown) * 100);
   }
   var myBarChart = new Chart(clickChart, {
@@ -135,9 +137,37 @@ function showTable() {
 };
 
 function moreClicks() {
-  clickLimit += 10;
+  clicksRemaining += 10;
   main.replaceChild(textPrompt, donePrompt);
   randomImage();
+}
+
+(function checkLocal() {
+  if(localStorage.clickData) {
+    console.log('Local storage exists for total clicks');
+    var parsedTotalClicks = JSON.parse(localStorage.clickData);
+    totalClicks = parsedTotalClicks;
+  }
+  if(localStorage.imageData) {
+    console.log('Local storage exists for imageData');
+    var parsedImageData = JSON.parse(localStorage.imageData);
+    imageArray = parsedImageData;
+    updateArrays();
+  } else {
+    console.log('local storage does not exist');
+  }
+})();
+
+document.getElementById('clear-local-storage').addEventListener('click', function() {
+  localStorage.clear();
+});
+
+function addArrays(array) {
+  var newNumber = 0;
+  for (var i = 0; i < imageArray.length; i++) {
+    newNumber += array[i];
+  }
+  return newNumber;
 }
 
 randomImage();
