@@ -47,6 +47,9 @@ function getRandomImageNumber(max, min) {
 }
 
 function getRandomImage() {
+  while (imagesContainer.firstChild) {
+    imagesContainer.removeChild(imagesContainer.firstChild);
+  }
   if (surveyPrompt.style.display !== 'flex'|| imagesContainer.style.display !== 'flex'|| resultsPrompt.style.display !== 'none'|| chartsContainer.style.display !== 'none') {
     surveyPrompt.style.display = 'flex';
     imagesContainer.style.display = 'flex';
@@ -65,10 +68,7 @@ function getRandomImage() {
     randomImageArray[i].timesShown++;
     var imageDiv = document.createElement('div');
     var image = document.createElement('img');
-    imageDiv.class = 'single-image';
-    imageDiv.style.display = "flex";
-    imageDiv.setAttribute('style', 'justify-content: center');
-    imageDiv.setAttribute('style', 'align-items: center');
+    imageDiv.className = 'single-image';
     image.src = randomImageArray[i].filePath;
     image.id = randomImageArray[i].imageName;
     imageDiv.appendChild(image);
@@ -95,9 +95,6 @@ function handleClick(event) {
     }
     localStorage.setItem('imageData', JSON.stringify(imageArray));
     updateArrays();
-    while (imagesContainer.firstChild) {
-      imagesContainer.removeChild(imagesContainer.firstChild);
-    }
     getRandomImage();
   } else {
     surveyPrompt.style.display = 'none';
