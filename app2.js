@@ -8,6 +8,8 @@ var clearLocalStorage = document.getElementById('clear-local-storage');
 var imageArray = [];
 var clicksArray = [];
 var shownArray = [];
+var nameArray = [];
+var percentClicked =[];
 var totalClicks = 0;
 var clicksRemaining = 25;
 
@@ -44,29 +46,29 @@ function getRandomImageNumber(max, min) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function randomImage() {
-  surveyPrompt.style.display = 'flex';
-  imagesContainer.style.display = 'flex';
-  resultsPrompt.style.display = 'none';
-  chartsContainer.style.display = 'none';
-  while (imagesContainer.firstChild) {
-    console.log('while loop screwed up');
-    imagesContainer.removeChild(imagesContainer.firstChild);
+function getRandomImage() {
+  if (surveyPrompt.style.display !== 'flex'|| imagesContainer.style.display !== 'flex'|| resultsPrompt.style.display !== 'none'|| chartsContainer.style.display !== 'none') {
+    surveyPrompt.style.display = 'flex';
+    imagesContainer.style.display = 'flex';
+    resultsPrompt.style.display = 'none';
+    chartsContainer.style.display = 'none';
   }
   var randomImageArray = [];
   for(var i = 0; i < 3; i++) {
     var randomImageNumber = getRandomImageNumber(19, 0);
     if(imageArray[randomImageNumber] == randomImageArray[0] || imageArray[randomImageNumber] == randomImageArray[1]) {
       while(imageArray[randomImageNumber] == randomImageArray[0] || imageArray[randomImageNumber] == randomImageArray[1]) {
-        console.log('second while loop screwed up');
         randomImageNumber = getRandomImageNumber(19, 0);
       }
     }
     randomImageArray.push(imageArray[randomImageNumber]);
-    imageChoiceArray[i].timesShown++;
+    randomImageArray[i].timesShown++;
     var imageDiv = document.createElement('div');
     var image = document.createElement('img');
     imageDiv.class = 'single-image';
+    imageDiv.style.display = "flex";
+    imageDiv.setAttribute('style', 'justify-content: center');
+    imageDiv.setAttribute('style', 'align-items: center');
     image.src = randomImageArray[i].filePath;
     image.id = randomImageArray[i].imageName;
     imageDiv.appendChild(image);
@@ -82,6 +84,7 @@ function updateArrays() {
 }
 
 function handleClick(event) {
+  event.preventDefault();
   if(clicksRemaining > 0) {
     totalClicks += 1;
     clicksRemaining -= 1;
@@ -92,6 +95,9 @@ function handleClick(event) {
     }
     localStorage.setItem('imageData', JSON.stringify(imageArray));
     updateArrays();
+    while (imagesContainer.firstChild) {
+      imagesContainer.removeChild(imagesContainer.firstChild);
+    }
     getRandomImage();
   } else {
     surveyPrompt.style.display = 'none';
@@ -101,21 +107,22 @@ function handleClick(event) {
 }
 
 function showTable() {
-  var data = {
-    labels: nameArray,
-    datasets: [{label: "Times Clicked", backgroundColor: "rgba(10,226,161,0.2)", borderColor: "rgba(10,226,161,1)", borderwidth: 1, hoverBackgroundColor: "rgba(10,226,161,.4)", hoverBorderColor: "rgba(10,226,161,1)", data: imageClicked}]
-  }
-  var data1 = {
-    labels : nameArray,
-    datasets : [{label: "% of Time Clicked When Displayed", backgroundColor: "rgba(54,162,235,0.2)", borderColor: "rgba(54,162,235,1)", borderwidth: 1, hoverBackgroundColor: "rgba(54,162,235,.4)", hoverBorderColor: "rgba(54,162,235,1)", data: percentClicked}]
-  }
   resultsPrompt.style.display = 'none';
+  clearLocalStorage.style.display = 'flex';
   chartsContainer.style.display = 'flex';
   for(var i = 0; i < imageArray.length; i++) {
     nameArray.push(imageArray[i].imageName);
     shownArray[i] = imageArray[i].timesShown;
     clicksArray[i] = imageArray[i].timesClicked;
     percentClicked.push((imageArray[i].timesClicked / imageArray[i].timesShown) * 100);
+  }
+  var data = {
+    labels: nameArray,
+    datasets: [{label: "Times Clicked", backgroundColor: "rgba(10,226,161,0.2)", borderColor: "rgba(10,226,161,1)", borderwidth: 1, hoverBackgroundColor: "rgba(10,226,161,.4)", hoverBorderColor: "rgba(10,226,161,1)", data: clicksArray}]
+  }
+  var data1 = {
+    labels : nameArray,
+    datasets : [{label: "% of Time Clicked When Displayed", backgroundColor: "rgba(54,162,235,0.2)", borderColor: "rgba(54,162,235,1)", borderwidth: 1, hoverBackgroundColor: "rgba(54,162,235,.4)", hoverBorderColor: "rgba(54,162,235,1)", data: percentClicked}]
   }
   var myBarChart = new Chart(clickChart, {
       type: 'bar',

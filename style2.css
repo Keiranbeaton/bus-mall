@@ -3,9 +3,6 @@ body {
 }
 
 div {
-  border-style: solid;
-  border-width: thin;
-  border-color: black;
   width: 100%;
   margin: 2px 0px 2px 0px;
 }
@@ -82,4 +79,9 @@ img {
 button {
   padding: 5px 15px 5px 15px;
   margin: 0px 5px 0px 5px;
+}
+
+canvas {
+  max-width: 48%;
+  max-height: 100%;
 }
