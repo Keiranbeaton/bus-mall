@@ -1,57 +1,87 @@
 body {
-  padding: 5px 5px 5px 5px;
   background-color: Gainsboro;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-article {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 400px;
-  text-align: center;
-}
-
 div {
+  width: 100%;
+  margin: 2px 0px 2px 0px;
+}
+
+.row-display {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.column-display {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-container {
+  display: flex;
   justify-content: space-around;
   align-items: center;
+  height: 800px;
   width: 100%;
 }
 
-canvas {
-  max-width: 48%;
-  max-height: 90%;
+.header {
+  justify-content: center;
+  align-items: center;
+}
+
+.single-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 400px;
+  margin: 0px 10px 0px 10px;
+}
+
+.centered-text {
+  text-align: center;
+  padding: 0% 20% 0% 20%;
+}
+
+#survey-prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#clear-local-storage {
+  display: none;
+}
+
+h1 {
+  font-family: serif;
+  font-size: 50px;
 }
 
 p {
-  text-align: center;
+  font-family: sans-serif;
+  font-size: 16px;
 }
 
 img {
-  max-width: 30%;
-  max-height: 500px;
-  padding: 2px 2px 2px 2px;
   border-style: solid;
   border-width: thin;
   border-color: black;
+  max-height: 95%;
+  max-width: 95%;
+  padding: 5px 5px 5px 5px;
+  background-color: white;
 }
 
 button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
-  width: 85px;
-  text-align: center;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  padding: 5px 15px 5px 15px;
+  margin: 0px 5px 0px 5px;
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 100%;
 }
