@@ -3,7 +3,6 @@ var imagesContainer = document.getElementById('images-container');
 var resultsPrompt = document.getElementById('results-prompt');
 var chartsContainer = document.getElementById('charts-container');
 var clickChart = document.getElementById('click-chart').getContext('2d');
-var percentChart = document.getElementById('percent-chart').getContext('2d');
 var clearLocalStorage = document.getElementById('clear-local-storage');
 var imageArray = [];
 var clicksArray = [];
@@ -24,7 +23,7 @@ function Image(imageName, filePath) {
 var babySweep = new Image('Baby Sweep', 'img/baby-sweep.png');
 var bananaCutter = new Image('Banana Cutter', 'img/banana-cutter.jpg');
 var breakfastMaker = new Image('Breakfast Maker', 'img/breakfast-maker.jpg');
-var cthulhu = new Image('Cthulu', 'img/cthulhu-action-figure.jpg');
+var cthulhu = new Image('Cthulhu', 'img/cthulhu-action-figure.jpg');
 var dogDuckBill = new Image('Dog Duck Bill', 'img/dog-duck-bill.jpg');
 var dragon = new Image('Dragon Meat', 'img/dragon-meat.jpg');
 var chair = new Image('Chair', 'img/inverted-chair.jpg');
@@ -59,10 +58,8 @@ function getRandomImage() {
   var randomImageArray = [];
   for(var i = 0; i < 3; i++) {
     var randomImageNumber = getRandomImageNumber(19, 0);
-    if(imageArray[randomImageNumber] == randomImageArray[0] || imageArray[randomImageNumber] == randomImageArray[1]) {
-      while(imageArray[randomImageNumber] == randomImageArray[0] || imageArray[randomImageNumber] == randomImageArray[1]) {
-        randomImageNumber = getRandomImageNumber(19, 0);
-      }
+    while(imageArray[randomImageNumber] == randomImageArray[0] || imageArray[randomImageNumber] == randomImageArray[1]) {
+      randomImageNumber = getRandomImageNumber(19, 0);
     }
     randomImageArray.push(imageArray[randomImageNumber]);
     randomImageArray[i].timesShown++;
@@ -115,21 +112,13 @@ function showTable() {
   }
   var data = {
     labels: nameArray,
-    datasets: [{label: "Times Clicked", backgroundColor: "rgba(10,226,161,0.2)", borderColor: "rgba(10,226,161,1)", borderwidth: 1, hoverBackgroundColor: "rgba(10,226,161,.4)", hoverBorderColor: "rgba(10,226,161,1)", data: clicksArray}]
-  }
-  var data1 = {
-    labels : nameArray,
-    datasets : [{label: "% of Time Clicked When Displayed", backgroundColor: "rgba(54,162,235,0.2)", borderColor: "rgba(54,162,235,1)", borderwidth: 1, hoverBackgroundColor: "rgba(54,162,235,.4)", hoverBorderColor: "rgba(54,162,235,1)", data: percentClicked}]
+    datasets: [{label: "Times Clicked", backgroundColor: "rgba(10,226,161,0.2)", borderColor: "rgba(10,226,161,1)", borderwidth: 1, hoverBackgroundColor: "rgba(10,226,161,.4)", hoverBorderColor: "rgba(10,226,161,1)", data: clicksArray}, {label: "Times Displayed", backgroundColor: "rgba(54,162,235,0.2)", borderColor: "rgba(54,162,235,1)", borderwidth: 1, hoverBackgroundColor: "rgba(54,162,235,.4)", hoverBorderColor: "rgba(54,162,235,1)", data: shownArray}]
   }
   var myBarChart = new Chart(clickChart, {
       type: 'bar',
       data: data
   });
-  var myBarChart1 = new Chart(percentChart, {
-    type: 'bar',
-    data: data1
-  });
-};
+}
 
 function moreClicks() {
   clicksRemaining += 10;
@@ -147,11 +136,11 @@ function moreClicks() {
   }
 })();
 
-getRandomImage();
-
 clearLocalStorage.addEventListener('click', function() {
   localStorage.clear();
 });
 imagesContainer.addEventListener('click', handleClick);
 document.getElementById('resultsButton').addEventListener('click', showTable);
 document.getElementById('continueButton').addEventListener('click', moreClicks);
+
+getRandomImage();
