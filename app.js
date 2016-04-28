@@ -67,7 +67,7 @@ function getRandomImage() {
     var image = document.createElement('img');
     imageDiv.className = 'single-image';
     image.src = randomImageArray[i].filePath;
-    image.id = randomImageArray[i].imageName;
+    imageDiv.id = randomImageArray[i].imageName;
     imageDiv.appendChild(image);
     imagesContainer.appendChild(imageDiv);
   }
