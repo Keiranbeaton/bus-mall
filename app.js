@@ -67,7 +67,7 @@ function getRandomImage() {
     var image = document.createElement('img');
     imageDiv.className = 'single-image';
     image.src = randomImageArray[i].filePath;
-    imageDiv.id = randomImageArray[i].imageName;
+    image.id = randomImageArray[i].imageName;
     imageDiv.appendChild(image);
     imagesContainer.appendChild(imageDiv);
   }
@@ -83,10 +83,10 @@ function updateArrays() {
 function handleClick(event) {
   event.preventDefault();
   if(clicksRemaining > 0) {
-    totalClicks += 1;
-    clicksRemaining -= 1;
     for(var i = 0; i < imageArray.length; i++) {
       if(event.target.id == imageArray[i].imageName) {
+        totalClicks += 1;
+        clicksRemaining -= 1;
         imageArray[i].timesClicked++;
       }
     }
