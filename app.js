@@ -112,7 +112,7 @@ function showTable() {
   }
   var data = {
     labels: nameArray,
-    datasets: [{label: "Times Clicked", backgroundColor: "rgba(10,226,161,0.2)", borderColor: "rgba(10,226,161,1)", borderwidth: 1, hoverBackgroundColor: "rgba(10,226,161,.4)", hoverBorderColor: "rgba(10,226,161,1)", data: clicksArray}, {label: "Times Displayed", backgroundColor: "rgba(54,162,235,0.2)", borderColor: "rgba(54,162,235,1)", borderwidth: 1, hoverBackgroundColor: "rgba(54,162,235,.4)", hoverBorderColor: "rgba(54,162,235,1)", data: shownArray}]
+    datasets: [{label: "Times Clicked", backgroundColor: "rgba(112,78,228,0.2)", borderColor: "rgba(112,78,228,1)", borderwidth: 1, hoverBackgroundColor: "rgba(112,78,228,.4)", hoverBorderColor: "rgba(112,78,228,1)", data: clicksArray}, {label: "Times Displayed", backgroundColor: "rgba(38,0,171,0.2)", borderColor: "rgba(38,0,171,1)", borderwidth: 1, hoverBackgroundColor: "rgba(38,0,171,.4)", hoverBorderColor: "rgba(38,0,171,1)", data: shownArray}]
   }
   var myBarChart = new Chart(clickChart, {
       type: 'bar',
